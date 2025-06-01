@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/286273541457706970/cfb9914140894686b98a78fddeea23fd/artifacts
+end_time: 1748739927148
+entry_point_name: ''
+experiment_id: '286273541457706970'
+lifecycle_stage: active
+run_id: cfb9914140894686b98a78fddeea23fd
+run_name: big-swan-969
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748739923612
+status: 3
+tags: []
+user_id: chovy

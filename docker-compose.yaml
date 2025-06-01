@@ -1,0 +1,45 @@
+services:
+  mlflow-db:
+    image: postgres:17.5-alpine
+    container_name: mlflow-db
+    restart: always
+    environment:
+      - POSTGRES_USER=mlflow
+      - POSTGRES_PASSWORD=mlflow
+      - POSTGRES_DB=mlflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mlflow-network
+
+  mlflow-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+    container_name: mlflow-server
+    restart: always
+    depends_on:
+      - mlflow-db
+    ports:
+      - "8080:8080"
+    volumes:
+      - mlflow_data:/mlflow
+    command: >
+      mlflow server 
+      --backend-store-uri postgresql://mlflow:mlflow@mlflow-db:5432/mlflow 
+      --default-artifact-root /mlflow 
+      --host 0.0.0.0
+      --port 8080
+      --workers 4
+    networks:
+      - mlflow-network
+
+networks:
+  mlflow-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  mlflow_data:

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/286273541457706970/72bab82f3f924224a9c02966f45476b5/artifacts
+end_time: 1748739951573
+entry_point_name: ''
+experiment_id: '286273541457706970'
+lifecycle_stage: active
+run_id: 72bab82f3f924224a9c02966f45476b5
+run_name: powerful-ox-665
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1748739948310
+status: 3
+tags: []
+user_id: chovy
