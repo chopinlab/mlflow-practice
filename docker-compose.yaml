@@ -3,14 +3,34 @@ services:
     image: postgres:17.5-alpine
     container_name: mlflow-db
     restart: always
+    env_file:
+      - mlflow.env
     environment:
-      - POSTGRES_USER=mlflow
-      - POSTGRES_PASSWORD=mlflow
-      - POSTGRES_DB=mlflow
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mlflow-network
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: always
+    env_file:
+      - mlflow.env
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
     networks:
       - mlflow-network
 
@@ -22,14 +42,20 @@ services:
     restart: always
     depends_on:
       - mlflow-db
+      - minio
     ports:
       - "8080:8080"
-    volumes:
-      - mlflow_data:/mlflow
+    env_file:
+      - mlflow.env
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - MLFLOW_S3_ENDPOINT_URL=http://minio:9000
     command: >
       mlflow server 
-      --backend-store-uri postgresql://mlflow:mlflow@mlflow-db:5432/mlflow 
-      --default-artifact-root /mlflow 
+      --backend-store-uri postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@mlflow-db:5432/${POSTGRES_DB}
+      --artifacts-destination s3://mlflow-artifacts/
+      --serve-artifacts
       --host 0.0.0.0
       --port 8080
       --workers 4
@@ -42,4 +68,5 @@ networks:
 
 volumes:
   postgres_data:
-  mlflow_data:
+  minio_data:
+  # mlflow_data:

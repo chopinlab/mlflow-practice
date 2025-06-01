@@ -1,0 +1,116 @@
+# 가상환경
+.venv/
+venv/
+env/
+ENV/
+
+# MLflow 관련
+mlruns/
+mlartifacts/
+mlflow.db
+*.db
+
+# Python 관련
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# 단위 테스트 / 커버리지 보고서
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# 환경 변수 파일
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+mlflow.env
+
+# IDE 관련
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 로그 파일
+*.log
+
+# 실험 결과물 (일반적으로 제외)
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.csv
+*.xlsx
+*.pickle
+*.pkl
+*.joblib
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.lnk
+
+# 모델 파일 (크기가 클 수 있음)
+*.h5
+*.hdf5
+*.model
+*.weights
+
+# 임시 디렉토리
+tmp/
+temp/
+.tmp/
+
+# 사용자 정의 실험 결과 (필요에 따라 조정)
+experiments/
+outputs/
+artifacts/
+checkpoints/ 
